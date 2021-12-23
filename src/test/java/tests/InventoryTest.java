@@ -1,10 +1,11 @@
 package tests;
 
 import org.testng.annotations.Test;
+import tests.base.BaseTest;
 
 import static org.testng.Assert.*;
 
-public class InventoryTest extends BaseTest{
+public class InventoryTest extends BaseTest {
     String userName = "standard_user";
     String password = "secret_sauce";
     String nameProduct = "Sauce Labs Onesie";

@@ -2,8 +2,9 @@ package tests;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
+import tests.base.BaseTest;
 
-public class LocatorsTest extends BaseTest{
+public class LocatorsTest extends BaseTest {
 
     @Test
     public void FindElementsByLocators(){

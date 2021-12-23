@@ -1,48 +1,54 @@
 package tests;
 
-import org.testng.Assert;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
+import tests.base.BaseTest;
+import tests.base.Retry;
+
+import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
-public class LoginPageTest extends BaseTest{
+public class LoginPageTest extends BaseTest {
     String userName = "standard_user";
     String password = "secret_sauce";
+    Set<Cookie> cookies;
+    @DataProvider(name = "loginData")
+    public Object[][] loginData() {
+        return new Object[][]{
+                {"", "secret_sauce", "Epic sadface: Username is required"},
+                {"standard_user", "", "Epic sadface: Password is required"},
+                {"fjfs", "fwdoprkc", "Epic sadface: Username and password do not match any user in this service"},
+                {"locked_out_user", "secret_sauce", "Epic sadface: Sorry, this user has been locked out."},
+        };
+    }
 
-    @Test
+    @Test(retryAnalyzer = Retry.class)
     public void validAuthorization(){
         loginPage.open();
         loginPage.login(userName, password);
-        assertEquals(inventoryPage.getTitle(), "PRODUCTS");
+        assertEquals(inventoryPage.getTitle(), "Products");
+
+        cookies = driver.manage().getCookies();
+        inventoryPage.open();
+
+        driver.manage().deleteAllCookies();
+        inventoryPage.open();
+
+        for (Cookie ck : cookies){
+            driver.manage().addCookie(ck);
+        }
+        inventoryPage.open();
     }
 
-    @Test
-    public void userNameShouldBeRequired(){
+    @Test(description = "Вход с пустым полем логина", dataProvider = "loginData", groups = "smoke")
+    public void negativeLoginTest(String userName, String password, String errorMessage){
         loginPage.open();
-        loginPage.login("", password);
-        assertEquals(loginPage.getErrorMessage(),"Epic sadface: Username is required");
+        loginPage.login(userName, password);
+        assertEquals(loginPage.getErrorMessage(), errorMessage);
     }
-
-    @Test
-    public void passwordShouldBeRequired(){
-        loginPage.open();
-        loginPage.login(userName, "");
-        assertEquals(loginPage.getErrorMessage(),"Epic sadface: Password is required");
-    }
-
-    @Test
-    public void userDataShouldBeCorrect(){
-        loginPage.open();
-        loginPage.login("hgfgfg", "fgvrgrtve");
-        assertEquals(loginPage.getErrorMessage(),"Epic sadface: Username and password do not match any user in this service");
-    }
-
-    @Test
-    public void lockedUser(){
-        loginPage.open();
-        loginPage.login("locked_out_user", password);
-        assertEquals(loginPage.getErrorMessage(),"Epic sadface: Sorry, this user has been locked out.");
-    }
-
-
 }
