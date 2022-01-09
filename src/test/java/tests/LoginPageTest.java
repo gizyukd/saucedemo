@@ -1,5 +1,8 @@
 package tests;
 
+import io.qameta.allure.Issue;
+import io.qameta.allure.Link;
+import io.qameta.allure.TmsLink;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -17,6 +20,7 @@ public class LoginPageTest extends BaseTest {
     String userName = "standard_user";
     String password = "secret_sauce";
     Set<Cookie> cookies;
+
     @DataProvider(name = "loginData")
     public Object[][] loginData() {
         return new Object[][]{
@@ -27,7 +31,10 @@ public class LoginPageTest extends BaseTest {
         };
     }
 
-    @Test(retryAnalyzer = Retry.class)
+    @Link("www.google.by")
+    @Issue("number of task in url")
+    @TmsLink("")
+    @Test(retryAnalyzer = Retry.class, description = "Authorization with valid data")
     public void validAuthorization(){
         loginPage.open();
         loginPage.login(userName, password);

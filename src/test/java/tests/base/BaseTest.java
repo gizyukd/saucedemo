@@ -38,7 +38,7 @@ public class BaseTest {
         inventoryPage = new InventoryPage(driver);
     }
 
-    @AfterMethod
+    @AfterMethod (alwaysRun = true, description = "Close browser")
     public void tearDown(){
         driver.quit();
     }

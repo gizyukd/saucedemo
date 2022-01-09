@@ -5,19 +5,22 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import utils.AllureUtils;
 
 public class TestListener implements ITestListener {
 
     public void onTestStart(ITestResult result) {
-        System.out.println(String.format("Test started: %s", result.getName()));
+        System.out.printf("Test started: %s%n", result.getName());
     }
 
     public void onTestFailure(ITestResult result) {
         //TODO Make Screenshots
         WebDriver driver = (WebDriver) result.getTestContext().getAttribute("driver");
-        ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        //((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
 
         System.out.println(String.format("Test failed: %s", result.getName()));
+
+        AllureUtils.takeScreenshot(driver);
     }
 
     public void onTestSuccess(ITestResult result) {
