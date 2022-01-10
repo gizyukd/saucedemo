@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
 public class BaseTest {
+
     protected WebDriver driver;
     protected LoginPage loginPage;
     protected InventoryPage inventoryPage;

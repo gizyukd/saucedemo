@@ -11,6 +11,7 @@ import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import tests.base.BaseTest;
 import tests.base.Retry;
+import utils.AllureUtils;
 
 import java.util.Set;
 
@@ -50,6 +51,7 @@ public class LoginPageTest extends BaseTest {
             driver.manage().addCookie(ck);
         }
         inventoryPage.open();
+        AllureUtils.takeScreenshot(driver);
     }
 
     @Test(description = "Вход с пустым полем логина", dataProvider = "loginData", groups = "smoke")
@@ -57,5 +59,6 @@ public class LoginPageTest extends BaseTest {
         loginPage.open();
         loginPage.login(userName, password);
         assertEquals(loginPage.getErrorMessage(), errorMessage);
+        AllureUtils.takeScreenshot(driver);
     }
 }

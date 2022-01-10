@@ -14,9 +14,7 @@ public class TestListener implements ITestListener {
     }
 
     public void onTestFailure(ITestResult result) {
-        //TODO Make Screenshots
         WebDriver driver = (WebDriver) result.getTestContext().getAttribute("driver");
-        //((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
 
         System.out.println(String.format("Test failed: %s", result.getName()));
 
