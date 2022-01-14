@@ -1,6 +1,7 @@
 package tests;
 
-public class CartTest extends BaseTest{
+import tests.base.BaseTest;
 
+public class CartTest extends BaseTest {
 
 }

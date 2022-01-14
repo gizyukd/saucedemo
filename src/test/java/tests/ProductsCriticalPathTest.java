@@ -1,6 +1,7 @@
 package tests;
 
 import org.testng.annotations.Test;
+import tests.base.BaseTest;
 
 import static org.testng.Assert.assertEquals;
 
@@ -14,6 +15,7 @@ public class ProductsCriticalPathTest extends BaseTest {
         loginPage.login(userName, password);
         inventoryPage.addToCart("Sauce Labs Onesie");
         String productPrice =  inventoryPage.getPriceByName("Sauce Labs Onesie");
+
         //cartPage.open();
         //cartPage.getProductName();
         //cartPage.getProductPrice();
