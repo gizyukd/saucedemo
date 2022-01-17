@@ -18,7 +18,7 @@ jobs:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
-
+      - run: defaults write com.apple.Safari AllowRemoteAutomation 1
       - run:
           name: Running tests
           command: mvn clean test
