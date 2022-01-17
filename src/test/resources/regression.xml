@@ -14,7 +14,7 @@
     </test> <!-- Test -->
 
     <test name="test 2">
-        <parameter name="browser" value="safari"/>
+        <parameter name="browser" value="chrome"/>
         <classes>
             <class name="tests.InventoryTest"/>
         </classes>
