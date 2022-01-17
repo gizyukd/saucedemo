@@ -31,8 +31,8 @@ public class BaseTest {
             WebDriverManager.safaridriver().setup();
             driver = new SafariDriver();
         }
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        //driver.manage().window().maximize();
 
         testContext.setAttribute("driver", driver);
         loginPage = new LoginPage(driver);

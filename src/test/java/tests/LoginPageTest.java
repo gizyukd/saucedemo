@@ -13,6 +13,7 @@ import tests.base.BaseTest;
 import tests.base.Retry;
 import utils.AllureUtils;
 
+import java.util.Locale;
 import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
@@ -39,7 +40,7 @@ public class LoginPageTest extends BaseTest {
     public void validAuthorization(){
         loginPage.open();
         loginPage.login(userName, password);
-        assertEquals(inventoryPage.getTitle(), "Products");
+        assertEquals(inventoryPage.getTitle().toLowerCase(), "products");
 
         cookies = driver.manage().getCookies();
         inventoryPage.open();
@@ -54,7 +55,7 @@ public class LoginPageTest extends BaseTest {
         AllureUtils.takeScreenshot(driver);
     }
 
-    @Test(description = "Вход с пустым полем логина", dataProvider = "loginData", groups = "smoke")
+    @Test(description = "Вход с невалидными данными", dataProvider = "loginData", groups = "smoke")
     public void negativeLoginTest(String userName, String password, String errorMessage){
         loginPage.open();
         loginPage.login(userName, password);
