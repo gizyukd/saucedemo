@@ -6,20 +6,21 @@ pipeline {
         maven "M3"
     }
 
-//     parameters{
-//         choice(choices: ['LoginPageTest', 'InventoryTest', 'ProductsCriticalPathTest', 'CartTest'], name: 'TEST_NAME')
-//         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH'
-//     }
+    parameters{
+        choice(choices: ['LoginPageTest', 'InventoryTest', 'ProductsCriticalPathTest', 'CartTest'], name: 'TEST_NAME')
+        gitParameter branchFilter: 'origin/(.*)', defaultValue: 'master', name: 'BRANCH', type: 'PT_BRANCH'
+    }
 
     stages {
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                //git branch: "${params.BRANCH}", url: 'https://github.com/gizyukd/saucedemo.git'
-                git 'https://github.com/gizyukd/saucedemo.git'
+                git branch: "${params.BRANCH}", url: 'https://github.com/gizyukd/saucedemo.git'
+                //git 'https://github.com/gizyukd/saucedemo.git'
 
                 // Run Maven on a Unix agent.
-                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                 //sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                 sh "mvn -Dmaven.test.failure.ignore=true clean test -Dtest=${TEST_NAME}"
 
                 // To run Maven on a Windows agent, use
                 //bat "mvn -Dmaven.test.failure.ignore=true clean test -Dtest=${TEST_NAME}"
