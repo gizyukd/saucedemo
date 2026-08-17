@@ -7,7 +7,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 
 public class InventoryPage extends BasePage{
-    public static final String ADD_PRODUCT_BUTTON = "//div[div[div[a[div[@class='inventory_item_name'][text()='%s']]]]]//button";
+    //public static final String ADD_PRODUCT_BUTTON = "//div[div[div[a[div[@class='inventory_item_name'][text()='%s']]]]]//button";
+    public static final String ADD_PRODUCT_BUTTON = "//div[a[div[text()='%s']]]/following-sibling::div//button";
     public static final String PRODUCT_PRICE = "//div[div[div[a[div[@class='inventory_item_name'][text()='%s']]]]]//div[@class='inventory_item_price']";
     public static final By TITLE_TEXT = By.xpath("//span[@class='title']");
     public static final By CART_BADGE = By.xpath("//span[@class='shopping_cart_badge']");

@@ -15,7 +15,7 @@
         <aspectjweaver.version>1.9.6</aspectjweaver.version>
         <testng.version>7.4.0</testng.version>
         <selenium.version>4.1.1</selenium.version>
-        <webdriver.version>5.0.3</webdriver.version>
+        <webdriver.version>6.3.4</webdriver.version>
         <allure-testng.version>2.13.9</allure-testng.version>
     </properties>
 
