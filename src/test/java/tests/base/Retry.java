@@ -3,6 +3,7 @@ package tests.base;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
+// класс для реализации ретраев, связан с параметром retryAnalyzer из аннотации Test
 public class Retry implements IRetryAnalyzer {
 
     private int attempt = 1;

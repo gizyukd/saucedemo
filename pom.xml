@@ -22,18 +22,51 @@
     <build>
         <plugins>
             <plugin>
+                <!-- нужен для возвожности запуска тестов по правилам из regression.xml через maven-команды в командной строке или Его задача — запускать тесты во время Maven-фазы: -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M3</version>
                 <configuration>
+             <!--       У Surefire также есть:
+                    <argLine>
+                        -javaagent:...aspectjweaver...jar -Xmx256m
+                    </argLine>
+                    argLine позволяет передать параметры JVM, в которой будут выполняться тесты.
+                    Здесь передаётся два параметра.
+                    Первый:
+                    -javaagent:...aspectjweaver...jar
+                    подключает AspectJ Weaver как Java Agent. В таком проекте он, скорее всего, используется для интеграции с Allure и обработки аспектов, в частности @Step.
+
+                    Второй:
+                    -Xmx256m
+                    ограничивает максимальный heap для JVM тестов примерно 256 MB.
+-->
                     <argLine>
                         -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar -Xmx256m
                     </argLine>
+                   <!-- В твоём случае ему дополнительно передана конфигурация:
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                    </suiteXmlFiles>
+                    А ${suiteXmlFile} выше определён как:
+                    src/test/resources/regression.xml
+                    То есть при:
+                    mvn test
+                    Surefire использует TestNG suite:
+                    regression.xml-->
                     <suiteXmlFiles>
                         <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
+
+          <!--  allure-testng
+            ↓
+            собирает результаты тестов для Allure
+
+            allure-maven
+            ↓
+            помогает Maven сформировать Allure Report-->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
@@ -50,6 +83,10 @@
             <version>${allure-testng.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!--AspectJ — технология аспектно-ориентированного программирования.
+Если сильно упростить, AspectJ позволяет внедрить дополнительное поведение вокруг вызова метода без
+ необходимости вручную добавлять этот код внутрь каждого метода.-->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -69,7 +106,7 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>${webdriver.version}</version>
+            <version>6.3.4</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>

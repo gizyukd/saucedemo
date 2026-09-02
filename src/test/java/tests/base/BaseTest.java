@@ -22,9 +22,9 @@ public class BaseTest {
     protected LoginPage loginPage;
     protected InventoryPage inventoryPage;
 
-    @Parameters({"browser"})
+    @Parameters({"browser"}) // используется в примере как параметр, который отвечает за разную конфигурацию драйвера, в зависимости от того, что указали в XML (regression.xml) в тэге parameter
     @BeforeMethod
-    public void setUp(@Optional("chrome") String browser, ITestContext testContext){
+    public void setUp(@Optional("chrome") String browser, ITestContext testContext){ // ITestContext testContext нужен для определения контекста выполнения теста, который используется в  методах класса TestListener
         if(browser.equals("chrome")){
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
@@ -50,7 +50,7 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         //driver.manage().window().maximize();
 
-        testContext.setAttribute("driver", driver);
+        testContext.setAttribute("driver", driver); // связываем атрибут контекста с драйвером, чтобы было чем оперировать в  методах класса TestListener
         loginPage = new LoginPage(driver);
         inventoryPage = new InventoryPage(driver);
     }

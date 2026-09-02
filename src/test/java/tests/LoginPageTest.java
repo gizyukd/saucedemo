@@ -42,7 +42,7 @@ public class LoginPageTest extends BaseTest {
         loginPage.login(userName, password);
         assertEquals(inventoryPage.getTitle().toLowerCase(), "products");
 
-        cookies = driver.manage().getCookies();
+        cookies = driver.manage().getCookies(); // работа с куками
         inventoryPage.open();
 
         driver.manage().deleteAllCookies();
@@ -61,5 +61,16 @@ public class LoginPageTest extends BaseTest {
         loginPage.login(userName, password);
         assertEquals(loginPage.getErrorMessage(), errorMessage);
         AllureUtils.takeScreenshot(driver);
+    }
+
+
+    @Test(enabled = false) // хависмый тест, т.к. не доконца дописана логика получения куков для тестов. Этому тесту надо, чтобы до его начала уже мы забрали куки
+    public void logInWithCookie(){
+        loginPage.open();
+        for (Cookie ck : cookies){
+            driver.manage().addCookie(ck);
+        }
+        inventoryPage.open();
+        inventoryPage.getTitle();
     }
 }
