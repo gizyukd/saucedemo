@@ -3,6 +3,7 @@ package tests;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Link;
 import io.qameta.allure.TmsLink;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
+@Log4j2
 public class LoginPageTest extends BaseTest {
     String userName = "standard_user";
     String password = "secret_sauce";
@@ -38,6 +40,7 @@ public class LoginPageTest extends BaseTest {
     @TmsLink("")
     @Test(retryAnalyzer = Retry.class, description = "Authorization with valid data")
     public void validAuthorization(){
+        log.info("Start running test validAuthorization");
         loginPage.open();
         loginPage.login(userName, password);
         assertEquals(inventoryPage.getTitle().toLowerCase(), "products");
